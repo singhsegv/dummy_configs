@@ -10,6 +10,7 @@ starting_point: # user's starting place: drone needs to fly there
   - "38.8951"
   - "-77.0364"
 
+# "dreamlab:" is for namespacing the app bundles. Some other user can create "custom:follow_me" app bundle and put to our platform for anyone to select from the GUI. (Stretch)
 applications:
-  - app_bundle_id: follow_me
-  - app_bundle_id: emergency_services # fall detection, emergency calling etc
+  - app_bundle_id: dreamlab:follow_me
+  - app_bundle_id: dreamlab:emergency_services # fall detection, emergency calling etc

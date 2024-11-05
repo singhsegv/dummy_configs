@@ -1,0 +1,43 @@
+# Showcased using YAML but can be web-based gui, mobile app, etc
+
+user_id: dummy_user # user identifier -> taken from the logged in session
+session_id: 2a9de718-58d9-4932-afe8-4dd0ffab7621 # system generated uuid for a trip
+time_duration: 60m # Todo: Time required to reach the location and to come back to the base needs to be buffered here, along with some buffer time for longer walks, etc
+start_time: "17:00 IST" # by when should our drone reach the starting point
+
+drone_type: fleet # Options: {single/fleet}
+drones_count: 4 # TODO: Read percom paper to figure out how tasks distribution work
+starting_point: # user's starting place: drone needs to fly there
+  - "38.8951"
+  - "-77.0364"
+
+# Doubts:
+# 1. How do we justify just making the video and sending that video back for the user to work on it himself
+# 2. Vs running a DNN model at our side real-time while monitoring the crops. This real-time becomes a necessity in wildfire or some disaster but is it a necessity for crop monitoring?
+# 3. Is "crop_monitor" genuinely an app in our case for showcase purpose? Or just "video_record" is a useful enough app for any given set of lat long?
+
+applications:
+  # ---------------------------------- Good example for a power user due to custom models ----------------------------------
+  # Crop monitoring will require specially trained model: For pests, disease etc
+  # Since apps are composable piece of code by devs who submit them, I can define my own requirements that I want from a user for this app to run.
+  - app_bundle_id: dreamlab:crop_monitor
+    # square area to cover the whole crop -> this should be selected using a UI like groundcontrol station for easy lat0long selection
+    lat_long_bottom_left:
+      - "38.8951"
+      - "-77.0364"
+    lat_long_top_right:
+      - "58.8951"
+      - "-57.0364"
+    height: 400 # cms to fly above the crops
+    models: # layer 2 leaks into this due to this being a power use
+      - model_image: custom_user_model:disease_thingy # Hosted on Dockerhub following our contract
+        sensors:
+          - sensor_type: camera_primary
+            max_fps: 30
+      - model_image: custom_user_model:pest_detection # Hosted on Dockerhub following our contract
+        sensors:
+          - sensor_type: camera_primary
+            max_fps: 10
+
+  - app_bundle_id: dreamlab:count_humans
+  # ---------------------------------------------------------------------------------------------------------------
