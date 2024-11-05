@@ -1,0 +1,15 @@
+# Showcased using YAML but can be web-based gui, mobile app, etc
+
+user_id: dummy_user # user identifier -> taken from the logged in session
+session_id: 2a9de718-58d9-4932-afe8-4dd0ffab7621 # system generated uuid for a trip
+time_duration: 60m # Todo: Time required to reach the location and to come back to the base needs to be buffered here, along with some buffer time for longer walks, etc
+start_time: "17:00 IST" # by when should our drone reach the starting point
+
+drone_type: single # Options: {single/fleet}
+starting_point: # user's starting place: drone needs to fly there
+  - "38.8951"
+  - "-77.0364"
+
+applications:
+  - app_bundle_id: follow_me
+  - app_bundle_id: emergency_services # fall detection, emergency calling etc

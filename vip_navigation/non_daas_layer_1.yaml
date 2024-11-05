@@ -1,0 +1,5 @@
+# Showcased using YAML but can be web-based gui, mobile app, etc
+
+user_id: dummy_user # user identifier
+session_id: 2a9de718-58d9-4932-afe8-4dd0ffab7621 # system generated
+starting_point:
