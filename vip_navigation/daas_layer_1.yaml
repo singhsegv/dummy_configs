@@ -62,10 +62,9 @@ applications:
       end_location: # latlong for end location
         - "33.8951"
         - "-73.0364"
+    enable_emergency_services: true
 
-  # enable emergency services - fall detection, emergency calling etc
-  - app_bundle_id: dreamlab:emergency_services
-
+# -----------------------------------------------------------------------------
 # Sample for Crop monitoring usecase
 # applications:
 applications_crop_agriculture_thingy:
