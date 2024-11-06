@@ -47,35 +47,34 @@ starting_point: # user's starting place: drone needs to fly there
   - "38.8951"
   - "-77.0364"
 
+# Application_level_details, activate based on use cases
 # "dreamlab:" is for namespacing the app bundles. Some other user can create "custom:follow_me" app bundle and put to our platform for anyone to select from the GUI. (Stretch)
 applications:
-  - app_bundle_id: dreamlab:follow_me
-  - app_bundle_id: dreamlab:emergency_services # fall detection, emergency calling etc
+  - app_bundle_id: dreamlab:vip
+    height_of_person: 170 # cms
+    follow_me:
+      flight_duration: 40m # provide min and max limits based on drones
+    # or
+    navigation_assistance: # guide from point A to point B
+      start_location: # latlong for start location
+        - "38.8951"
+        - "-77.0364"
+      end_location: # latlong for end location
+        - "33.8951"
+        - "-73.0364"
 
-# Application_level_details, activate based on use cases
-# VIP:
-# height_of_person:
-# Follow_Me # walk in a park
-# 	flight_duration:    # provide min and max limits based on drones
-# Navigation_Assistance # guide from point A to point B
-# 	start_location:   # name of location
-# 	end_location:
-# start_time:       #now or specify time
-# enable_emergency_services: 			# yes or no
+  # enable emergency services - fall detection, emergency calling etc
+  - app_bundle_id: dreamlab:emergency_services
 
-# Crop:
-# 	Surveillance/Monitoring
-# 		objects: []  	# choose from pest, humans, vehicles, animals
-# 		spatial_regions: bbox_lat_long
-# 		fight_duration:
-# 		height_of_drone:
-# 	Irrigation
-# 		spatial_regions: bbox_lat_long
-# 		....
+# Examples for other apps
+applications_others:
+  - app_bundle_id: dreamlab:crop_monitoring
+    objects: [] # choose from pest, humans, vehicles, animals
+    spatial_regions: bbox_lat_long
+    fight_duration: 30m
+    height_of_drone: 150
 
-# Fire:
-# 	Surveillance/Monitoring
-# 		spatial_regions: bbox_lat_long
-# 		flight_duration:
-# 		enable_escape_route_generation: 		#yes or no
-# 		enable_fire_prediction_direction: 		#yes or no
+  - app_bundle_id: dreamlab:irrigation
+    spatial_regions: bbox_lat_long
+    fight_duration: 30m
+    height_of_drone: 150
