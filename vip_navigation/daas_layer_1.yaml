@@ -66,8 +66,9 @@ applications:
   # enable emergency services - fall detection, emergency calling etc
   - app_bundle_id: dreamlab:emergency_services
 
-# Examples for other apps
-applications_others:
+# Sample for Crop monitoring usecase
+# applications:
+applications_crop_agriculture_thingy:
   - app_bundle_id: dreamlab:crop_monitoring
     objects: [] # choose from pest, humans, vehicles, animals
     spatial_regions: bbox_lat_long
@@ -78,3 +79,12 @@ applications_others:
     spatial_regions: bbox_lat_long
     fight_duration: 30m
     height_of_drone: 150
+
+# Sample for Crop monitoring usecase
+# applications:
+applications_fire:
+  - app_bundle_id: dreamlab:fire_surveillance
+    spatial_regions: bbox_lat_long
+    flight_duration: 20m
+    enable_escape_route_generation: true
+    enable_fire_prediction_direction: true
