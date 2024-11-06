@@ -1,11 +1,48 @@
 # Showcased using YAML but can be web-based gui, mobile app, etc
 
 user_id: dummy_user # user identifier -> taken from the logged in session
-session_id: 2a9de718-58d9-4932-afe8-4dd0ffab7621 # system generated uuid for a trip
+domain: choose from the 7 available usecases # selecting this should show the sub options to be selected like analytics optons, etc
+
 time_duration: 60m # Todo: Time required to reach the location and to come back to the base needs to be buffered here, along with some buffer time for longer walks, etc
 start_time: "17:00 IST" # by when should our drone reach the starting point
 
-drone_type: single # Options: {single/fleet}
+# ------------------------------
+# For fleet
+is_fleet_required: true
+drones_count_required: 4
+# or
+# For single drone
+# is_fleet_required: false
+# ------------------------------
+
+# ------------------------------
+# For personal drone (using this as a framework)
+use_daas_drones: false
+drones:
+  # get onboard gps or other sensor information from some catalogue stored with us.
+  - drone_registration_number: dummy
+    drone_manufacturer: dji-ryze
+    drone_model: tello
+    camera_fps: 30
+# or
+# For using our DaaS
+# use_daas_drones: true
+# ------------------------------
+
+# ------------------------------
+# Either use our models, or all yours. No complex mixture for now.
+use_daas_analytics: true
+
+# If use_daas_analytics: false
+analytics:
+  - model_info: model_1
+    fps: 1
+    api_info: dummy
+  - model_info: model_2
+    fps: 15
+    api_info: dummy
+  # ...
+
 starting_point: # user's starting place: drone needs to fly there
   - "38.8951"
   - "-77.0364"
@@ -14,3 +51,31 @@ starting_point: # user's starting place: drone needs to fly there
 applications:
   - app_bundle_id: dreamlab:follow_me
   - app_bundle_id: dreamlab:emergency_services # fall detection, emergency calling etc
+
+# Application_level_details, activate based on use cases
+# VIP:
+# height_of_person:
+# Follow_Me # walk in a park
+# 	flight_duration:    # provide min and max limits based on drones
+# Navigation_Assistance # guide from point A to point B
+# 	start_location:   # name of location
+# 	end_location:
+# start_time:       #now or specify time
+# enable_emergency_services: 			# yes or no
+
+# Crop:
+# 	Surveillance/Monitoring
+# 		objects: []  	# choose from pest, humans, vehicles, animals
+# 		spatial_regions: bbox_lat_long
+# 		fight_duration:
+# 		height_of_drone:
+# 	Irrigation
+# 		spatial_regions: bbox_lat_long
+# 		....
+
+# Fire:
+# 	Surveillance/Monitoring
+# 		spatial_regions: bbox_lat_long
+# 		flight_duration:
+# 		enable_escape_route_generation: 		#yes or no
+# 		enable_fire_prediction_direction: 		#yes or no
