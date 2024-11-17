@@ -1,0 +1,85 @@
+# Some attributes might be mutually exclusive
+# The goal is to make an exhaustive list for all the primitives
+
+# Note: Normal users might not exposed to these primitives directly? Atleast in first iteration?
+# Note: A lot of attributes might be mutually exclusive
+# Note: A lot of primitives might have a sensible default
+
+# ----------------- Level 1: Imperative (Almost 1 to 1 mappings with hardware) -----------------
+- primitive_type: move
+  primitive_category: navigation
+  # velocity and distance are mutually exclusive
+  velocity: # velocity in cm/s
+    vx: 10.0
+    vy: 0.0
+    vz: 1.0
+    yaw: 10.0 # yaw in radians/s or something
+  distance: # in cms from current location
+    x: 100.0
+    y: 12.0
+    z: 14:0
+    velocity: 12.0
+    yaw: 10.0 # only rotate on its axis while not moving as such
+    yaw_velocity: 12.0
+
+- primitive_type: goto
+  primitive_category: navigation
+  location:
+    lat: 38.8951
+    long: -77.0364
+
+- primitive_type: rotate # around drone's axis
+  primitive_category: navigation
+  rotations: 3
+  height: 150.0 # in cms
+  velocity: 12.0
+# ------------------------------------------------------------------------------------------------
+
+# ----------------- Level 2: Common (Basic combination of imperative controls) -----------------
+- primitive_type: revolve # orbital motion from some object or an anchor point
+  primitive_category: navigation
+  anchor: # these should be mutually exclusive -> anchor around a gps location or make a circle of 'x' radius (distance)
+    gps:
+      lat: 38.8951
+      long: -77.0364
+    distance:
+      radius: 500 # in cms
+    object:
+      dnn_callback: none # TODO: How to revolve around some DNN tracked object. Callback-ish way?
+
+- primitive_type: return_to_base # starting latlong should already be stored
+  primitive_category: navigation
+  conditions:
+    battery: 15 # as soon as the battery hits a certain percent -> Return to the base
+    time: 60m # as soon as the fly time hits a certain percent -> Return to the base
+
+- primitive_type: follow_path
+  primitive_category: navigation
+  velocity: 12.0
+  distance: # distance and gps based waypoints are mutually exclusive
+    - x: 100.0
+      y: 12.0
+      z: 14.0
+    - x: 100.0
+      y: 12.0
+      z: 14.0
+    # ...
+  waypoints:
+    - lat: 77.0
+      long: 35.0
+    - lat: 77.0
+      long: 35.0
+    - lat: 77.0
+      long: 35.0
+    # ...
+# ------------------------------------------------------------------------------------------------
+
+# ----------------- Level 3: Sophisticated (Complex navigation primitives requiring DNN models) -----------------
+
+# Note: Checkout examples/survey.yaml for concrete examples
+- primitive_type: survey
+  primitive_category: navigation
+
+# Note: Checkout examples/follow.yaml for concrete examples
+- primitive_type: follow
+  primitive_category: navigation

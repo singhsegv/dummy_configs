@@ -1,0 +1,45 @@
+- primitive_type: detect
+  primitive_category: analytics
+  app_bundle_id: dreamlab:follow_me # Unique identifier to which this task belongs to -> STRETCH (don't complicate for now): Future users can maybe create app bundles and submit to us (android appstore thingy)
+  model_image: dreamlab:yolo_vip_v1 # docker image for the model -> this will allow Hermes to be a framework which is actually usable to other -> We can open source it then only
+  control_priority: high # For DaaS concept -> How much drone control is allowed to a 3rd party DNN model; TBD: Refer AnDrone paper; TBD: Define the meaning of {high/med/low}
+  sensors:
+    - sensor_type: camera_primary
+  fps: 10 # Process 1 outta every 3 frames; Assumption: This drone's camera has 30fps camera
+  ocularone:
+    edge: # Need to run a benchmark script for these numbers
+      inf_times: 100
+      utility: 100
+      deadline: 200 # ms
+      server: # add port number and IP
+      post_processing_server: # add port number and IP
+      # ...
+    cloud: # Need to run a benchmark script for these numbers
+      inf_times: 100
+      utility: 100
+      deadline: 300 # ms
+      server: "https://aws.lamba.com/dream_lab/yolo_vip_1_dummy_url"
+      post_processing_server: "https://aws.lamba.com/dream_lab/yolo_vip_1_dummy_url/post"
+
+- primitive_type: custom
+  primitive_category: analytics
+  app_bundle_id: dreamlab:follow_me # Unique identifier to which this task belongs to -> STRETCH (don't complicate for now): Future users can maybe create app bundles and submit to us (android appstore thingy)
+  model_image: dreamlab:yolo_vip_v1 # docker image for the model -> this will allow Hermes to be a framework which is actually usable to other -> We can open source it then only
+  control_priority: high # For DaaS concept -> How much drone control is allowed to a 3rd party DNN model; TBD: Refer AnDrone paper; TBD: Define the meaning of {high/med/low}
+  sensors:
+    - sensor_type: camera_primary
+  fps: 10 # Process 1 outta every 3 frames; Assumption: This drone's camera has 30fps camera
+  ocularone:
+    edge: # Need to run a benchmark script for these numbers
+      inf_times: 100
+      utility: 100
+      deadline: 200 # ms
+      server: # add port number and IP
+      post_processing_server: # add port number and IP
+      # ...
+    cloud: # Need to run a benchmark script for these numbers
+      inf_times: 100
+      utility: 100
+      deadline: 300 # ms
+      server: "https://aws.lamba.com/dream_lab/yolo_vip_1_dummy_url"
+      post_processing_server: "https://aws.lamba.com/dream_lab/yolo_vip_1_dummy_url/post"

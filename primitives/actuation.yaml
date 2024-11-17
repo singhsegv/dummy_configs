@@ -1,0 +1,12 @@
+# Lowest level commands: Majorly made for composability purposes of the framework
+# Normal users might not be exposed to these as such
+# Only for power users and our implementation details
+
+- type: takeoff
+  height: 1.5 # m
+  max_speed: 2 # m/s
+
+- type: land
+  max_speed: 2 # m/s
+
+# Land on a marker??

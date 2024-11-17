@@ -1,0 +1,59 @@
+# Survey task
+# 1. Choose shape: Circular / Bounding box based
+# 2. Choose survey type: Boundary / Zigzag
+# 3. Choose camera focus (wherever applicable): Forward / Center (of the whole area to be surveyed)
+# 4. Optional stuff: Sensor selection / Sensor configuration / Height
+
+# Note: If the camera focus is "center" the drone needs to have some yaw calculated constantly to keep the focus in the center.
+# Note: survey_columns: Number of zigzags to do in the area.
+# Note: These should be composed from our navigation primitives only.
+
+# Example 1 -> Basic survey around "boundary" a rectangular area
+- primitive_type: survey
+  primitive_category: navigation
+  shape: bbox
+  type: boundary
+  camera_focus: center # {forward/center}
+  height: 150 # cms
+  velocity: 2.0 # something/s
+
+# Example 2 -> Basic survey in a zigzag pattern in a rectangular area
+- primitive_type: survey
+  primitive_category: navigation
+  shape: bbox
+  type: zigzag
+  survey_columns: 3 # how many zigzags to do
+  camera_focus: forward # forward only
+  height: 150 # cms
+  velocity: 2.0 # something/s
+
+# Example 3 -> Basic survey around "boundary" a circular area: Can be based on {gps anchor + radius / distance from current + radius }
+- primitive_type: survey
+  primitive_category: navigation
+  shape: circular
+  type: boundary # only boundary makes sense for circular
+  radius: 1500 # cms
+  anchor: # these should be mutually exclusive -> anchor around a gps location or make a circle of 'x' radius (distance)
+    gps:
+      lat: 38.8951
+      long: -77.0364
+    distance:
+      radius: 500 # in cms
+  camera_focus: forward # {forward/center}
+  height: 150 # cms
+  velocity: 2.0 # something/s
+
+# Example 4 -> Complex survey with addition of "custom_analytics" attribute TBD
+- primitive_type: survey
+  primitive_category: navigation
+  shape: circular
+  type: boundary
+  camera_focus: forward # {forward/center}
+  height: 150 # cms
+  velocity: 2.0 # something/s
+  custom_analytics:
+    - sensor_type: camera_primary
+      sensor_topic: "/drone0/sensor/image"
+      dnn_model:
+        model_image: dreamlab:collision_avoidance_v1
+        fps: 15
